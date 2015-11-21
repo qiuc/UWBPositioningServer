@@ -7,8 +7,8 @@
   <script>
     var real = io.connect('http://localhost/realtime');
     var info = {
-      "token": "XXXXXX";
-      "group": "default";
+      "token": "XXXXXX",
+      "group": "default"
     };
     real.on('connect', function () {
       real.emit('on_load', info);
@@ -33,8 +33,8 @@
 
 ```javascript
   var info = {
-    "token": "XXXXXX";
-    "group": "default";
+    "token": "XXXXXX",
+    "group": "default"
   };
   real.on('connect', function () {
     real.emit('on_load', info);
@@ -45,8 +45,8 @@
 
 ```javascript
   var info = {
-    "token": "XXXXXX";
-    "tag":   5;
+    "token": "XXXXXX",
+    "tag":   5
   };
   real.on('connect', function () {
     real.emit('on_load', info);
@@ -75,8 +75,8 @@
 
 ```javascript
   var info = {
-    "token": "XXXXXX";
-    "group": "default";
+    "token": "XXXXXX",
+    "group": "default"
   };
   replay.on('connect', function () {
     replay.emit('on_load', info);
@@ -87,8 +87,8 @@
 
 ```javascript
   var info = {
-    "token": "XXXXXX";
-    "tag":   [5, 6, 7];
+    "token": "XXXXXX",
+    "tag":   [5, 6, 7]
   };
   replay.on('connect', function () {
     replay.emit('on_load', info);
@@ -99,7 +99,7 @@
 
 ```javascript
   var start = {
-    "timestamp": 1445625675    // 开始时间戳
+    "timestamp": 1445625675,    // 开始时间戳
     "speed"    : 1             // 播放倍数
   }
   replay.emit('start', start); // 开始播放
@@ -120,7 +120,7 @@
 
 ```javascript
   var info = {
-    "token": "XXXXXX";
+    "token": "XXXXXX"
   };
   alarm.on('connect', function () {
     alarm.emit('on_load', info);

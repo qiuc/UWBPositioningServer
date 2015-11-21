@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('UWBPositioningServer:server');
 var http = require('http');
-
+var socketioHandler = require('../uwbpositioning/socketioHandler');
 /**
  * Get port from environment and store in Express.
  */
@@ -20,6 +20,17 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+/**
+ * Create socket.io service.
+ */
+
+var io = require('socket.io')(server);
+var redis = require('socket.io-redis');
+io.adapter(redis({ host: 'localhost', port: 6379 }));
+
+var realTime = io.of('/realtime');
+realTime.on('connection', socketioHandler.realtime);
 
 /**
  * Listen on provided port, on all network interfaces.

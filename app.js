@@ -4,9 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var validator = require('express-validator');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var routes  = require('./routes/index');
+var users   = require('./routes/users');
+var groups  = require('./routes/groups');
+var anchors = require('./routes/anchors');
+var tags    = require('./routes/tags');
+var test    = require('./routes/test');
 
 var app = express();
 
@@ -19,11 +24,22 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(validator({
+  customValidators: {
+    isArray: function (value) {
+      return Array.isArray(value);
+    }
+  }
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/api/groups', groups);
+app.use('/api/anchors', anchors);
+app.use('/api/tags', tags);
+app.use('/test', test);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -56,5 +72,11 @@ app.use(function(err, req, res, next) {
   });
 });
 
+// start positioning task
+var positioning = require('./uwbpositioning/task');
+
+positioning.run({}, function() {
+  console.log('UWB positioning is running\n');
+});
 
 module.exports = app;

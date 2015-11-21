@@ -1,0 +1,9 @@
+extends layout
+
+block jsfile
+  script(src='/socket.io/socket.io.js')
+  script(src='/javascripts/realtime.js')
+
+block content
+  h1= title
+  p Welcome to #{title}
